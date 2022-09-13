@@ -1,16 +1,6 @@
 <template>
-  <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : ''">
+  <div id="appWeather" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : 'cold'">
     <main>
-      <div class="about-app">
-        <h1>Como funciona?</h1>
-        <ul class="steps-list">
-          <li> - Clique no campo de busca e escreva o nome de uma cidade do mundo</li>
-          <li> - Pressione a tecla "Enter" no seu teclado e veja o clima e a temperatura do local escolhido aparecer!</li>
-        </ul>
-        <div class="agree">
-          <button class="button" v-on:click="closeAboutApp()"><span>Entendi</span></button>
-        </div>
-      </div>
       <div class="search-box">
         <input 
           type="text" 
@@ -32,7 +22,6 @@
           <div class="weather">{{ weather.weather[0].main }}</div>
         </div>
       </div>
-      <span>teste</span>
     </main>
   </div>
 </template>
@@ -62,16 +51,13 @@ export default {
     },
     dateBuilder () {
       let d = new Date();
-      let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      let months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+      let days = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
       let day = days[d.getDay()];
       let date = d.getDate();
       let month = months[d.getMonth()];
       let year = d.getFullYear();
-      return `${day} ${date} ${month} ${year}`;
-    },
-    closeAboutApp(){
-      document.querySelector(".about-app").style.display = "none";
+      return `${day}, ${date} ${month} de ${year}`;
     }
   }
 }
@@ -96,15 +82,21 @@ li{
   list-style-type: none;
 }
 
-#app {
-  background-image: url('./assets/cold-bg.jpg');
+#appWeather {
+  background-image: url('./assets/default-bg.jpg');;
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
 }
-#app.warm {
-  background-image: url('./assets/warm-bg.jpg');
+
+#appWeather.cold{
+  background-image: url('./assets/cold-day.jpg');
 }
+
+#appWeather.warm {
+  background-image: url('./assets/cloud-blue-sky.jpg');
+}
+
 main {
   min-height: 100vh;
   padding: 25px;
@@ -135,7 +127,7 @@ main {
 }
 
 .search-box .search-bar::placeholder{
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .location-box .location {
@@ -174,68 +166,4 @@ main {
   font-style: italic;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
-
-.about-app{
-  display: block;
-  margin: 25px auto;
-  padding: 20px;
-  border-radius: 15px;
-  background-color:rgba(255, 255, 255, 0.25);
-  transition: 0.4s;
-}
-
-.about-app h1{
-  margin-bottom: 15px;;
-  color: #FFF;
-  text-align: center;
-  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
-}
-
-.about-app ul{
-  margin-bottom: 20px;
-}
-
-.about-app ul li{
-  margin-bottom: 10px;
-  color: #fff;
-}
-
-.about-app ul li:last-child{
-  margin-bottom: 0;
-}
-
-.agree{
-  display: flex;
-  justify-content: center;
-}
-
-.agree button{
-  width: auto;
-  padding: 15px 70px;
-  font-size: 24px;
-  border: 0;
-  border-radius: 50px;
-  background-color: rgb(71, 255, 71);
-  cursor: pointer;
-  transition: 0.4s;
-}
-
-.agree button:hover{
-  background-color: lightgreen;
-}
-
-@media only screen and (min-width:769px){
-  .about-app{
-    width: 50vw;
-  }
-
-}
-
-@media only screen and (max-width:768px){
-  .about-app h1{
-    font-size: 25px;
-  }
-
-}
-
 </style>
